@@ -8,14 +8,10 @@ sed -i 's/#HandleLidSwitchDocked=.*/HandleLidSwitchDocked=suspend-then-hibernate
 sed -i 's/#HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=suspend-then-hibernate/g' /usr/lib/systemd/logind.conf
 sed -i 's/#SleepOperation=.*/SleepOperation=suspend-then-hibernate suspend/g' /usr/lib/systemd/logind.conf
 systemctl enable gdm.service
-systemctl enable fwupd.service
 # enable systemd-resolved for proper name resolution
 # FIXME: this does not yet work, the resolution service fails for somer reason
 systemctl enable systemd-resolved.service
-systemctl enable rpm-ostree-countme.service
 systemctl --global enable podman-auto-update.timer
-systemctl enable rpm-ostree-countme.service
-systemctl disable rpm-ostree.service
 systemctl enable dconf-update.service
 # Forcefully enable brew setup since the preset doesnt seem to work?
 systemctl enable brew-setup.service

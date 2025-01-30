@@ -26,17 +26,16 @@ dnf -y install /tmp/rpms/ublue-os-{udev-rules,luks}.noarch.rpm
 
 cp -r /usr/share/ublue-os/just /tmp/just
 # Focefully install ujust without powerstat while we don't have it on EPEL
-rpm -ivh /tmp/rpms/ublue-os-just.noarch.rpm --nodeps --force
+dnf -y install /tmp/rpms/ublue-os-just.noarch.rpm
 mv /tmp/just/* /usr/share/ublue-os/just
 
-dnf config-manager --add-repo "https://pkgs.tailscale.com/stable/centos/${MAJOR_VERSION_NUMBER}/tailscale.repo"
-dnf config-manager --set-disabled tailscale-stable
+dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+dnf config-manager setopt tailscale-stable.enabled=0
 dnf -y --enablerepo tailscale-stable install \
-	tailscale
+    tailscale
 
-dnf config-manager --add-repo "https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/centos-stream-$MAJOR_VERSION_NUMBER/ublue-os-staging-centos-stream-$MAJOR_VERSION_NUMBER.repo"
-dnf config-manager --set-disabled "copr:copr.fedorainfracloud.org:ublue-os:staging"
-dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:staging install \
+dnf -y copr enable ublue-os/staging
+dnf -y install \
 	-x bluefin-logos \
 	fzf \
 	glow \
@@ -51,19 +50,21 @@ dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:staging install \
 	souk \
 	bluefin-*
 
-dnf -y --enablerepo "copr:copr.fedorainfracloud.org:ublue-os:staging" install uupd &&
+dnf -y install uupd &&
 	dnf -y install systemd-container
 
-dnf -y --enablerepo "copr:copr.fedorainfracloud.org:ublue-os:staging" install ublue-setup-services &&
+dnf -y install ublue-setup-services &&
 	systemctl enable check-sb-key.service
 
-dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:staging swap \
-	centos-logos bluefin-logos
+dnf -y install \
+	bluefin-logos
 
-dnf config-manager --add-repo "https://copr.fedorainfracloud.org/coprs/che/nerd-fonts/repo/centos-stream-${MAJOR_VERSION_NUMBER}/che-nerd-fonts-centos-stream-${MAJOR_VERSION_NUMBER}.repo"
-dnf config-manager --set-disabled copr:copr.fedorainfracloud.org:che:nerd-fonts
-dnf -y --enablerepo copr:copr.fedorainfracloud.org:che:nerd-fonts install \
-	nerd-fonts
+dnf -y copr enable ublue-os/staging
+
+dnf -y copr enable che/nerd-fonts
+dnf -y install \
+ 	nerd-fonts
+dnf copr disable che/nerd-fonts
 
 # This is required so homebrew works indefinitely.
 # Symlinking it makes it so whenever another GCC version gets released it will break if the user has updated it without-
