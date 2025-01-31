@@ -42,29 +42,29 @@ dnf -y install \
 	wl-clipboard \
 	gnome-shell-extension-{search-light,gsconnect,logo-menu} \
 	gum \
-	jetbrains-mono-fonts-all \
-	ublue-motd \
-	ublue-fastfetch \
-	ublue-brew \
-	ublue-bling \
-	souk \
-	bluefin-*
+	jetbrains-mono-fonts-all
+# 	ublue-motd \
+# 	ublue-fastfetch \
+# 	ublue-brew \
+# 	ublue-bling \
+# 	souk \
+# 	bluefin-*
 
-dnf -y install uupd &&
-	dnf -y install systemd-container
+# dnf -y install uupd &&
+# 	dnf -y install systemd-container
 
-dnf -y install ublue-setup-services &&
-	systemctl enable check-sb-key.service
+# dnf -y install ublue-setup-services &&
+# 	systemctl enable check-sb-key.service
 
-dnf -y install \
-	bluefin-logos
+# dnf -y install \
+# 	bluefin-logos
 
-dnf -y copr enable ublue-os/staging
+dnf -y copr disable ublue-os/staging
 
-dnf -y copr enable che/nerd-fonts
-dnf -y install \
- 	nerd-fonts
-dnf copr disable che/nerd-fonts
+# dnf -y copr enable che/nerd-fonts
+# dnf -y install \
+#  	nerd-fonts
+# dnf copr disable che/nerd-fonts
 
 # This is required so homebrew works indefinitely.
 # Symlinking it makes it so whenever another GCC version gets released it will break if the user has updated it without-

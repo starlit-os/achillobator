@@ -131,8 +131,7 @@ _build-bib $target_image $tag $type $config: (_rootful_load_image target_image t
       sudo rm -rf "output/${type}" || true
     fi
 
-    args="--type ${type}"
-    args+="--use-librepo=True"
+    args="--rootfs ext4 --type ${type}"
 
     if [[ $target_image == localhost/* ]]; then
       args+=" --local"
