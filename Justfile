@@ -1,7 +1,7 @@
-export repo_organization := env("GITHUB_REPOSITORY_OWNER", "ublue-os")
+export repo_organization := env("GITHUB_REPOSITORY_OWNER", "starlit-os")
 export image_name := env("IMAGE_NAME", "bluefin")
-export centos_version := env("CENTOS_VERSION", "stream10")
-export default_tag := env("DEFAULT_TAG", "lts")
+export centos_version := env("CENTOS_VERSION", "42")
+export default_tag := env("DEFAULT_TAG", "latest")
 export bib_image := env("BIB_IMAGE", "quay.io/centos-bootc/bootc-image-builder:latest")
 
 alias build-vm := build-qcow2
@@ -193,6 +193,7 @@ _build-bib $target_image $tag $type $config: (_rootful_load_image target_image t
     fi
 
     args="--type ${type} "
+    args+="--rootfs btrfs "
     args+="--use-librepo=True"
 
     if [[ $target_image == localhost/* ]]; then

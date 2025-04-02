@@ -2,5 +2,6 @@
 
 set -xeuo pipefail
 
-systemctl enable podman.socket
-systemctl enable docker.socket
+systemctl enable incus.socket
+systemctl enable incus.service
+systemctl enable incus-startup

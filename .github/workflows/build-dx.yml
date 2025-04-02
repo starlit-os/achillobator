@@ -20,3 +20,7 @@ jobs:
     with:
       image-name: bluefin-dx
       flavor: dx
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
