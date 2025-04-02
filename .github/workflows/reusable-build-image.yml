@@ -23,10 +23,10 @@ on:
         type: string
         default: "amd64,arm64"
       centos-version:
-        description: "The version of CentOS to build the image on"
+        description: "The version of Fedora to build the image on"
         required: false
         type: string
-        default: "stream10"
+        default: "42"
     secrets:
       SIGNING_SECRET:
         description: "The private key used to sign the image"
@@ -135,7 +135,7 @@ jobs:
           SYFT_CMD: ${{ steps.setup-syft.outputs.cmd }}
         run: |
           sudo systemctl start podman.socket
-          
+
           OUTPUT_PATH="$(mktemp -d)/sbom.json"
           export SYFT_PARALLELISM=$(($(nproc)*2))
           sudo $SYFT_CMD ${IMAGE}:${DEFAULT_TAG} -o spdx-json=${OUTPUT_PATH}
@@ -255,7 +255,7 @@ jobs:
       - generate_matrix
       - build_push
     container:
-      image:  cgr.dev/chainguard/wolfi-base:latest
+      image: cgr.dev/chainguard/wolfi-base:latest
       options: --privileged --security-opt seccomp=unconfined
     permissions:
       contents: read

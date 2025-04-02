@@ -19,3 +19,7 @@ jobs:
     secrets: inherit
     with:
       image-name: bluefin
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
