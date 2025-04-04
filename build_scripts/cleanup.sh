@@ -12,6 +12,10 @@ set -xeuo pipefail
 # not updated, so we don't want to leave them enabled.
 #dnf config-manager --set-disabled baseos-compose,appstream-compose
 
+# Remove Bluefin overrides
+rm /usr/share/glib-2.0/schemas/zz0-bluefin-modifications.gschema.override
+
+
 # Image-layer cleanup
 shopt -s extglob
 
