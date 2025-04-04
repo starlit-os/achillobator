@@ -28,6 +28,9 @@ sed -i "/.*io.github.dvlv.boxbuddyrs.*/d" /etc/ublue-os/system-flatpaks.list
 mkdir -p /etc/flatpak/remotes.d
 curl --retry 3 -o /etc/flatpak/remotes.d/flathub.flatpakrepo "https://dl.flathub.org/repo/flathub.flatpakrepo"
 
+# Remove Bluefin overrides
+rm /usr/share/glib-2.0/schemas/zz0-bluefin-modifications.gschema.override
+
 # move the custom just
 mv /usr/share/ublue-os/just/61-lts-custom.just /usr/share/ublue-os/just/60-custom.just 
 
